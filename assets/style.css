@@ -14,8 +14,11 @@ body{padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(saf
 .question-card { margin: 2rem 0; padding: 1.25rem; border: 1px solid #bdcbbb; border-top: 4px solid var(--green); border-radius: 16px; background: #fff; box-shadow: 0 4px 16px #203c300b; scroll-margin-top: 24px; overflow-wrap: anywhere; }
 .question-card img { display: block; max-width: 100%; height: auto; margin: 1rem auto; }
 .question-card h3 { margin-top: 0; }
+.question-card .question-meta { color: var(--muted); font-size: .8em; margin-bottom: 1rem; }
 .question-card > blockquote { margin: 1.25rem 0; padding: .75rem 1rem; border-left: 3px solid #b8c9a7; border-radius: 0 10px 10px 0; background: #f4f6f0; }
 .question-card > blockquote p { margin-bottom: 0; }
+.question-card .translation { margin: 1.25rem 0 0; padding: .75rem; border: 1px solid var(--line); border-radius: 10px; }
+.question-card .translation > :last-child { margin-bottom: 0; }
 .question-card .answer { margin: 1.25rem 0 0; padding: .75rem; border-radius: 10px; background: #eef3eb; }
 .question-card .answer > :last-child { margin-bottom: 0; }
 .question-card summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-weight: 700; }
