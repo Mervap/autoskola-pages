@@ -9,7 +9,8 @@
   let favorites;
   try { favorites = new Set(JSON.parse(localStorage.getItem(storageKey) || "[]")); }
   catch { favorites = new Set(); }
-  const normalize = text => text.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replace(/đ/g, "dj").replace(/ё/g, "е");
+  const cyrillic = {а:"a",б:"b",в:"v",г:"g",д:"d",ђ:"dj",е:"e",ж:"z",з:"z",и:"i",ј:"j",к:"k",л:"l",љ:"lj",м:"m",н:"n",њ:"nj",о:"o",п:"p",р:"r",с:"s",т:"t",ћ:"c",у:"u",ф:"f",х:"h",ц:"c",ч:"c",џ:"dz",ш:"s",ь:"",ы:"y",ъ:"",э:"e",ю:"ju",я:"ja",ё:"e",й:"j",щ:"sc"};
+  const normalize = text => [...text.toLowerCase()].map(c => cyrillic[c] ?? c).join("").normalize("NFD").replace(/\p{Diacritic}/gu, "").replace(/đ/g, "dj");
   const syncStars = () => document.querySelectorAll("[data-bookmark]").forEach(button => {
     const saved = favorites.has(button.dataset.bookmark);
     button.setAttribute("aria-pressed", String(saved));
@@ -79,6 +80,27 @@
       if (!response.ok) throw new Error("Search index unavailable");
       return response.json();
     }).then(rows => { rows.forEach(row => index.set(row.slug, normalize(row.text))); updateResults(); }).catch(() => {});
+  }
+
+  const questionInput = document.querySelector("#question-search");
+  if (questionInput) {
+    const cards = [...document.querySelectorAll(".question-card")];
+    const groups = [...document.querySelectorAll(".question-group")];
+    const questionText = new Map(cards.map(card => [card, normalize(card.textContent)]));
+    const updateQuestions = () => {
+      const terms = normalize(questionInput.value.trim()).split(/\s+/).filter(Boolean);
+      let visible = 0;
+      cards.forEach(card => {
+        card.hidden = !terms.every(term => questionText.get(card).includes(term));
+        if (!card.hidden) visible++;
+      });
+      groups.forEach(group => { group.hidden = ![...group.querySelectorAll(".question-card")].some(card => !card.hidden); });
+      document.querySelector("#question-count").textContent = visible ? `Найдено вопросов: ${visible}` : "Не нашлось. Попробуй другое слово или номер.";
+    };
+    questionInput.addEventListener("input", updateQuestions);
+    document.querySelectorAll(".question-nav a").forEach(link => link.addEventListener("click", () => {
+      questionInput.value = ""; updateQuestions();
+    }));
   }
 
   const tabs = [...document.querySelectorAll("[data-tab]")];

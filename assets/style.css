@@ -10,3 +10,15 @@
 .reader-heading>div{min-width:0}.reader-heading h1{overflow-wrap:anywhere}.card-top .icon-button{min-height:44px}
 .table-wrap[data-overflow=true]::before{content:"Прокрути таблицу вбок →";display:block;position:sticky;left:0;padding:7px 12px;background:#edf1e5;color:#77866a;font-size:10px;text-align:right}
 body{padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+/* Selected bank examples, including small diagrams on mobile. */
+.question-card { margin: 1.5rem 0; padding: 1.25rem; border: 1px solid var(--line, #d8dfd5); border-radius: 16px; background: #fff; scroll-margin-top: 90px; overflow-wrap: anywhere; }
+.question-card img { display: block; max-width: 100%; height: auto; margin: 1rem auto; }
+.question-card h3 { margin-top: 0; }
+.question-card .answer { margin: 1.25rem 0; padding: .75rem; border-radius: 10px; background: #eef3eb; }
+.question-card summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-weight: 700; }
+.question-card summary::before { content: "＋"; margin-right: .5rem; }
+.question-card details[open] > summary::before { content: "−"; }
+.question-nav { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.5rem; }
+.question-nav a { display: flex; align-items: center; min-height: 44px; padding: .4rem .75rem; border: 1px solid #d8dfd5; border-radius: 20px; font-size: .85rem; text-decoration: none; }
+.question-reader .search-box { margin: 1rem 0; }
+@media (max-width: 480px) { .question-card { padding: 1rem; } }
