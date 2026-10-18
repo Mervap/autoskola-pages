@@ -52,7 +52,7 @@
         if (matches) visible++;
       });
       empty.hidden = visible > 0;
-      count.textContent = visible === 12 && !terms.length && category === "Все" && !onlyFavorites ? "Все 12 тем" : `Найдено тем: ${visible}`;
+      count.textContent = visible === cards.length && !terms.length && category === "Все" && !onlyFavorites ? `Все ${cards.length} тем` : `Найдено тем: ${visible}`;
       if (onlyFavorites && favorites.size === 0) empty.querySelector("p").textContent = "Добавь тему в избранное кнопкой со звёздочкой.";
       else empty.querySelector("p").textContent = "Попробуй другое слово или выбери «Все».";
     };
